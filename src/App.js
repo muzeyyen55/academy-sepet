@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import AddItem from "./components/AddItem";
 import List from "./components/List";
 import Search from "./components/Search";
 
-const DUMMY_CART = [
+let DUMMY_CART = [
   {
     id: 0,
     title: "Yumurta",
@@ -61,6 +63,10 @@ function App() {
     setSearchTerm(e.target.value);
   };
 
+  const handleOnSave = (data) => {
+    DUMMY_CART.push(data);
+  };
+
   // [] Init calisir. Sayfa acildiginda bi BE request
   // undefined ise Her kosulda calis
   // [searchTerm] sadece search term degisitiginde
@@ -72,10 +78,22 @@ function App() {
     );
   }, [searchTerm]);
   return (
-    <div className="App">
-      <Search onChange={handleSearch} />
-      <List cart={filteredCart} />
-    </div>
+    <BrowserRouter className="App">
+      <Switch>
+        <Route path="/" exact>
+          <>
+            <Search on Change={handleSearch} />
+            <List cart={filteredCart} />
+          </>
+        </Route>
+        <Route path="/add" exact>
+          <AddItem onAdd={handleOnSave} />
+        </Route>
+        <Route path="/edit/:id">
+          <AddItem onAdd={handleOnSave} />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 

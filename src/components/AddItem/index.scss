@@ -1,0 +1,22 @@
+.AddItem {
+  background-color: #ccc;
+  width: fit-content;
+  margin: 1rem auto;
+  padding: 2rem;
+  div {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    label {
+      padding-right: 5px;
+    }
+    button {
+      margin: auto;
+      border: none;
+      color: white;
+      background-color: rgb(79, 88, 207);
+      padding: 5px 10px;
+      border-radius: 6px;
+    }
+  }
+}

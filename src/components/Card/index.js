@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./index.scss";
 
 // Desctruction fonksiyonun tek argumani oldugunda arg.obj1.data ve arg.obj2.data diye almak yerine
@@ -21,6 +22,7 @@ const Card = ({ product }) => {
         <span>Toplam Odenen:</span>
         {(product.price * product.quantity).toFixed(2)}
       </p>
+      <Link to={"/edit/" + product.id}>Duzenle</Link>
     </div>
   );
 };
