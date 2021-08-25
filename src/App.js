@@ -82,7 +82,7 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <>
-            <Search on Change={handleSearch} />
+            <Search onChange={handleSearch} />
             <List cart={filteredCart} />
           </>
         </Route>
@@ -90,7 +90,7 @@ function App() {
           <AddItem onAdd={handleOnSave} />
         </Route>
         <Route path="/edit/:id">
-          <AddItem onAdd={handleOnSave} />
+          <AddItem onAdd={handleOnSave} cart={filteredCart} />
         </Route>
       </Switch>
     </BrowserRouter>
