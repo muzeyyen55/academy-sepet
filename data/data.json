@@ -1,0 +1,67 @@
+{
+  "cart": [
+    {
+      "id": 1,
+      "title": "Peynir",
+      "description": "Erzincan Tulum",
+      "quantity": "1.5",
+      "price": "30"
+    },
+    {
+      "id": 2,
+      "title": "Yoğurt",
+      "description": "Sütaş",
+      "quantity": 1,
+      "price": 7.5
+    },
+    {
+      "id": 3,
+      "title": "Balık",
+      "description": "Hamsi",
+      "quantity": 3,
+      "price": 4.2
+    },
+    {
+      "id": 4,
+      "title": "Diş Fırçası",
+      "description": "Oral B",
+      "quantity": 1,
+      "price": 12
+    },
+    {
+      "id": 5,
+      "title": "Domates",
+      "description": "Çanakkale",
+      "quantity": 3,
+      "price": 2.5
+    },
+    {
+      "id": 6,
+      "title": "Balık",
+      "description": "Kalkan",
+      "quantity": 2,
+      "price": 60
+    },
+    {
+      "id": 7,
+      "title": "Yumurta",
+      "description": "Köy Yumurtası",
+      "quantity": 10,
+      "price": 0.9
+    },
+    {
+      "title": "Mama",
+      "description": "Aptima",
+      "quantity": "1",
+      "price": "100",
+      "id": 8
+    },
+    {
+      "title": "Salam",
+      "description": "Salam",
+      "quantity": "1",
+      "price": "1",
+      "id": 9
+    }
+  ]
+}

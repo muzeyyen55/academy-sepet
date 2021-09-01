@@ -17,6 +17,7 @@ const AddItem = ({ onAdd, cart }) => {
   const handleOnSave = () => {
     if (formRef.current.checkValidity()) {
       onAdd({
+        id: selectedItem?.id,
         title: formRef.current.elements.title.value,
         description: formRef.current.elements.description.value,
         quantity: formRef.current.elements.quantity.value,

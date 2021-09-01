@@ -4,79 +4,77 @@ import AddItem from "./components/AddItem";
 import List from "./components/List";
 import Search from "./components/Search";
 
-let DUMMY_CART = [
-  {
-    id: 0,
-    title: "Yumurta",
-    description: "Köy Yumurtası",
-    quantity: 10,
-    price: 0.9,
-  },
-  {
-    id: 1,
-    title: "Peynir",
-    description: "Erzincan Tulum",
-    quantity: 0.5,
-    price: 30,
-  },
-  {
-    id: 2,
-    title: "Yoğurt",
-    description: "Sütaş",
-    quantity: 1,
-    price: 7.5,
-  },
-  {
-    id: 3,
-    title: "Balık",
-    description: "Hamsi",
-    quantity: 3,
-    price: 4.2,
-  },
-  {
-    id: 4,
-    title: "Diş Fırçası",
-    description: "Oral B",
-    quantity: 1,
-    price: 12,
-  },
-  {
-    id: 5,
-    title: "Domates",
-    description: "Çanakkale",
-    quantity: 3,
-    price: 2.5,
-  },
-  {
-    id: 6,
-    title: "Balık",
-    description: "Kalkan",
-    quantity: 2,
-    price: 60,
-  },
-];
 function App() {
+  const [cart, setCart] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredCart, setFilteredCart] = useState(DUMMY_CART);
+  const [filteredCart, setFilteredCart] = useState(cart);
+
+  function fetchCartItems() {
+    fetch("http://localhost:4004/cart")
+      .then((resp) => {
+        return resp.json();
+      })
+      .then((data) => {
+        setCart(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
 
   const handleOnSave = (data) => {
-    DUMMY_CART.push(data);
+    if (data.id) {
+      updateCartItem(data);
+    } else {
+      createCartItem(data);
+    }
   };
+
+  function createCartItem(cart) {
+    //POST CREATE
+    fetch("http://localhost:4004/cart", {
+      method: "POST",
+      body: JSON.stringify(cart),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(() => {
+      fetchCartItems();
+    });
+  }
+  function updateCartItem(cart) {
+    //PUT UPDATE  PUT cart/1
+
+    //POST CREATE
+    fetch("http://localhost:4004/cart/" + cart.id, {
+      method: "PUT",
+      body: JSON.stringify(cart),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(() => {
+      fetchCartItems();
+    });
+  }
+
+  useEffect(() => {
+    fetchCartItems();
+  }, []);
 
   // [] Init calisir. Sayfa acildiginda bi BE request
   // undefined ise Her kosulda calis
   // [searchTerm] sadece search term degisitiginde
   useEffect(() => {
     setFilteredCart(
-      DUMMY_CART.filter((c) => {
+      cart.filter((c) => {
         return c.title.includes(searchTerm);
       })
     );
-  }, [searchTerm]);
+  }, [searchTerm, cart]);
   return (
     <BrowserRouter className="App">
       <Switch>
