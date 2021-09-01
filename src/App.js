@@ -9,18 +9,56 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredCart, setFilteredCart] = useState(cart);
 
-  function fetchCartItems() {
-    fetch("http://localhost:4004/cart")
-      .then((resp) => {
-        return resp.json();
-      })
-      .then((data) => {
-        setCart(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  // function fetchCartItems() {
+  //   console.log("1");
+  //   fetch("http://localhost:4004/cart") // uzun vadeli is
+  //     .then((resp) => {
+  //       console.log("3");
+  //       return resp.json();
+  //     })
+  //     .then((data) => {
+  //       console.log("4");
+  //       setCart(data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  //   console.log("2");
+
+  //   // Murat 1,3,4 2
+  //   // Taha 1,3,2,4
+  //   // 1,2, 3, 4
+  // }
+
+  async function fetchCartItems() {
+    try {
+      const resp = await fetch("http://localhost:4004/cart"); //Kenara atar ,
+      const data = await resp.json();
+      setCart(data);
+    } catch (error) {
+      console.log(error);
+    }
   }
+  //React REDUX
+
+  // function fetchCartItems() {
+  //   console.log("1"); // yazdir
+  //   setTimeout(() => { // promise timeoumust isim bitsin geri donecem
+  //     console.log("2"); //yazdir
+  //   }, 0);
+
+  //   console.log("3"); // yazdir
+
+  //   setTimeout(() => { // promise timeoumust isim bitsin geri donecem
+  //     console.log("4"); //
+  //   }, 0);
+  //   setTimeout(() => {// promise timeoumust isim bitsin geri donecem
+  //     console.log("5");
+  //   }, 1000);
+  //   // Murat 4,1
+  //   // 1 3 2 4
+  //   // 1 3 2 4 1000ms 5
+  // }
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
