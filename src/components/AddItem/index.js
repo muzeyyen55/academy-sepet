@@ -1,19 +1,21 @@
 import React, { useEffect, useRef, useState } from "react"; //Hooks JS
 import { useHistory, useParams } from "react-router-dom"; // REACT JS
 import withLogger from "../../hoc/withLogger";
+import useHttp from "../../hook/use-http";
 import "./index.scss";
 
-const AddItem = ({ onAdd, cart }) => {
+const AddItem = ({ onAdd }) => {
   const formRef = useRef();
   const history = useHistory();
   const { id } = useParams();
   const [selectedItem, setSelectedItem] = useState(null);
+  const { response } = useHttp();
 
   useEffect(() => {
     if (id > -1) {
-      setSelectedItem(cart.find((c) => c.id == id));
+      setSelectedItem(response.find((c) => c.id == id));
     }
-  }, [id]);
+  }, [id, response]);
   const handleOnSave = () => {
     if (formRef.current.checkValidity()) {
       onAdd({

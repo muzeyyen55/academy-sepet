@@ -3,12 +3,13 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import AddItem from "./components/AddItem";
 import List from "./components/List";
 import Search from "./components/Search";
+import useHttp from "./hook/use-http";
 
 function App() {
   const [cart, setCart] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredCart, setFilteredCart] = useState(cart);
-
+  const { response, error, fetchCartItems } = useHttp();
   // function fetchCartItems() {
   //   console.log("1");
   //   fetch("http://localhost:4004/cart") // uzun vadeli is
@@ -30,15 +31,15 @@ function App() {
   //   // 1,2, 3, 4
   // }
 
-  async function fetchCartItems() {
-    try {
-      const resp = await fetch("http://localhost:4004/cart"); //Kenara atar ,
-      const data = await resp.json();
-      setCart(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // async function fetchCartItems() {
+  //   try {
+  //     const resp = await fetch("http://localhost:4004/cart"); //Kenara atar ,
+  //     const data = await resp.json();
+  //     setCart(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
   //React REDUX
 
   // function fetchCartItems() {
@@ -100,8 +101,8 @@ function App() {
   }
 
   useEffect(() => {
-    fetchCartItems();
-  }, []);
+    setCart(response);
+  }, [response, error]);
 
   // [] Init calisir. Sayfa acildiginda bi BE request
   // undefined ise Her kosulda calis
@@ -118,15 +119,15 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <>
-            <Search onChange={handleSearch} />
-            <List cart={filteredCart} />
+            <Search /> //redux
+            <List />
           </>
         </Route>
         <Route path="/add" exact>
           <AddItem onAdd={handleOnSave} />
         </Route>
         <Route path="/edit/:id">
-          <AddItem onAdd={handleOnSave} cart={filteredCart} />
+          <AddItem onAdd={handleOnSave} />
         </Route>
       </Switch>
     </BrowserRouter>
